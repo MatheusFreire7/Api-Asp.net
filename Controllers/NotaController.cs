@@ -10,28 +10,28 @@ namespace ProjetoEscola_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlunoController : ControllerBase
+    public class NotaController : ControllerBase
     {
         private EscolaContext _context;
 
-        public AlunoController(EscolaContext context)
+        public NotaController(EscolaContext context)
         {
             // construtor
             _context = context;
         }
 
         [HttpGet]
-        public ActionResult<List<Aluno>> GetAll() 
+        public ActionResult<List<Nota>> GetAll() 
         {
-            return _context.Aluno.ToList();
+            return _context.Nota.ToList();
         }
 
-        [HttpGet("{AlunoId}")]
-        public ActionResult<List<Aluno>> Get(int AlunoId)
+        [HttpGet("{NotaId}")]
+        public ActionResult<List<Nota>> Get(int NotaId)
         {
             try
             {
-                var result = _context.Aluno.Find(AlunoId);
+                var result = _context.Nota.Find(NotaId);
                 if (result == null)
                 {
                     return NotFound();
@@ -45,15 +45,15 @@ namespace ProjetoEscola_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> post(Aluno model)
+        public async Task<ActionResult> post(Nota model)
         {
         try
         {
-            _context.Aluno.Add(model);
+            _context.Nota.Add(model);
             if (await _context.SaveChangesAsync() == 1)
             {
                 //return Ok();
-                return Created($"/api/aluno/{model.ra}",model);
+                return Created($"/api/nota/{model.id}",model);
             }
         }
         catch
@@ -64,25 +64,24 @@ namespace ProjetoEscola_API.Controllers
             return BadRequest();
         }
 
-        [HttpPut("{AlunoId}")]
-        public async Task<IActionResult> put(int AlunoId, Aluno dadosAlunoAlt)
+        [HttpPut("{NotaId}")]
+        public async Task<IActionResult> put(int NotaId, Nota dadosNotaAlt)
         {
             try 
             {
-                //verifica se existe aluno a ser alterado
-                var result = await _context.Aluno.FindAsync(AlunoId);
-                if (AlunoId != result.id)
+              
+                var result = await _context.Nota.FindAsync(NotaId);
+                if (NotaId != result.id)
                 {
                     return BadRequest();
                 }
-                result.nome = dadosAlunoAlt.nome;
-                result.ra = dadosAlunoAlt.ra;
-                result.email = dadosAlunoAlt.email;
-                result.telefone = dadosAlunoAlt.telefone;
-                result.data_nascimento = dadosAlunoAlt.data_nascimento;
-                result.curso = dadosAlunoAlt.curso;
+                result.ra = dadosNotaAlt.ra;
+                result.nota = dadosNotaAlt.nota;
+                result.disciplina = dadosNotaAlt.disciplina;
+                //result.disciplina = dadosNotaAlt.disciplina;
+    
                 await _context.SaveChangesAsync();
-                return Created($"/api/aluno/{dadosAlunoAlt.ra}", dadosAlunoAlt);
+                return Created($"/api/nota/{dadosNotaAlt.ra}", dadosNotaAlt);
             }
             catch
             {
@@ -90,19 +89,19 @@ namespace ProjetoEscola_API.Controllers
             }
         }
 
-        [HttpDelete("{AlunoId}")]
-        public async Task<ActionResult> delete(int AlunoId)
+        [HttpDelete("{NotaId}")]
+        public async Task<ActionResult> delete(int NotaId)
         {
             try
             {
                 //verifica se existe aluno a ser excluído
-                var aluno = await _context.Aluno.FindAsync(AlunoId);
-                if (aluno == null)
+                var nota = await _context.Nota.FindAsync(NotaId);
+                if (nota == null)
                 {
                     //método do EF
                     return NotFound();
                 }
-                _context.Remove(aluno);
+                _context.Remove(nota);
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
