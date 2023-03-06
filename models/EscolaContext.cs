@@ -20,5 +20,7 @@ namespace ProjetoEscola_API.Data
         }
         public DbSet<Aluno>? Aluno { get; set; }
          public DbSet<Nota>? Nota { get; set; }
+        public DbSet<Professor>? Professor { get; set; }
+        public DbSet<Disciplina>? Disciplina { get; set; }
     }
 }
