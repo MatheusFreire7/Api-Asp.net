@@ -49,6 +49,10 @@ namespace ProjetoEscola_API.Controllers
         {
         try
         {
+            if(model.ra.Length > 5 )
+            {
+                return BadRequest();
+            }
             _context.Aluno.Add(model);
             if (await _context.SaveChangesAsync() == 1)
             {
@@ -71,7 +75,7 @@ namespace ProjetoEscola_API.Controllers
             {
                 //verifica se existe aluno a ser alterado
                 var result = await _context.Aluno.FindAsync(AlunoId);
-                if (AlunoId != result.id)
+                if (AlunoId != result.id || dadosAlunoAlt.ra.Length > 5)
                 {
                     return BadRequest();
                 }

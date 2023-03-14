@@ -49,6 +49,10 @@ namespace ProjetoEscola_API.Controllers
         {
         try
         {
+            if(model.nota > 10  || model.nota < 0 || model.ra.Length > 5 )
+            {
+                return BadRequest();
+            }
             _context.Nota.Add(model);
             if (await _context.SaveChangesAsync() == 1)
             {
@@ -71,7 +75,8 @@ namespace ProjetoEscola_API.Controllers
             {
               
                 var result = await _context.Nota.FindAsync(NotaId);
-                if (NotaId != result.id)
+               
+                if (NotaId != result.id || dadosNotaAlt.nota > 10 || dadosNotaAlt.nota < 0 || dadosNotaAlt.ra.Length > 5 )
                 {
                     return BadRequest();
                 }

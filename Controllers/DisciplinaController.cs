@@ -50,6 +50,10 @@ namespace ProjetoEscola_API.Controllers
         {
         try
         {
+            if(model.ano > 2023 || model.ano < 1)
+            {
+                return BadRequest();
+            }
             _context.Disciplina.Add(model);
             if (await _context.SaveChangesAsync() == 1)
             {
@@ -72,7 +76,7 @@ namespace ProjetoEscola_API.Controllers
             {
                 //verifica se existe aluno a ser alterado
                 var result = await _context.Disciplina.FindAsync(DisciplinaId);
-                if (DisciplinaId != result.id)
+                if (DisciplinaId != result.id || dadosDisciplinaAlt.ano > 2023 || dadosDisciplinaAlt.ano < 1)
                 {
                     return BadRequest();
                 }
