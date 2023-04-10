@@ -45,6 +45,8 @@ namespace ProjetoEscola_API.Controllers
             }
         }
 
+        
+
         [HttpPost]
         public async Task<ActionResult> post(Professor model)
         {
@@ -113,4 +115,5 @@ namespace ProjetoEscola_API.Controllers
         }
     
     }
+
 }

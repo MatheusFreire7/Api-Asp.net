@@ -3628,24 +3628,32 @@
     ]
   },
   "packageFolders": {
-    "/Users/u21251/.nuget/packages/": {}
+    "C:\\Users\\u21251\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/u21251/Documents/GitHub/Api-Asp.net/ProjetoEscola_API.csproj",
+      "projectUniqueName": "C:\\Users\\u21251\\Documents\\Github\\Api-Asp.net\\ProjetoEscola_API.csproj",
       "projectName": "ProjetoEscola_API",
-      "projectPath": "/Users/u21251/Documents/GitHub/Api-Asp.net/ProjetoEscola_API.csproj",
-      "packagesPath": "/Users/u21251/.nuget/packages/",
-      "outputPath": "/Users/u21251/Documents/GitHub/Api-Asp.net/obj/",
+      "projectPath": "C:\\Users\\u21251\\Documents\\Github\\Api-Asp.net\\ProjetoEscola_API.csproj",
+      "packagesPath": "C:\\Users\\u21251\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\u21251\\Documents\\Github\\Api-Asp.net\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/u21251/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\u21251\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3696,7 +3704,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -5,33 +5,32 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEscola_API.Data;
 using ProjetoEscola_API.Models;
-
 namespace ProjetoEscola_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NotaController : ControllerBase
+    public class CursoController : ControllerBase
     {
-        private EscolaContext _context;
+         private EscolaContext _context;
 
-        public NotaController(EscolaContext context)
+        public CursoController(EscolaContext context)
         {
             // construtor
             _context = context;
         }
 
         [HttpGet]
-        public ActionResult<List<Nota>> GetAll() 
+        public ActionResult<List<CursoEscola>> GetAll() 
         {
-            return _context.Nota.ToList();
+            return _context.CursoEscola.ToList();
         }
 
-        [HttpGet("{NotaId}")]
-        public ActionResult<List<Nota>> Get(int NotaId)
+         [HttpGet("{CursoId}")]
+        public ActionResult<List<CursoEscola>> Get(int CursoId)
         {
             try
             {
-                var result = _context.Nota.Find(NotaId);
+                var result = _context.CursoEscola.Find(CursoId);
                 if (result == null)
                 {
                     return NotFound();
@@ -45,20 +44,15 @@ namespace ProjetoEscola_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> post(Nota model)
+        public async Task<ActionResult> post(CursoEscola model)
         {
         try
         {
-            if(model.nota > 10  || model.nota < 0 || model.ra.Length > 5  ||
-             model.nota == null || model.disciplina == null || model.ra == null)
-            {
-                return BadRequest();
-            }
-            _context.Nota.Add(model);
+            _context.CursoEscola.Add(model);
             if (await _context.SaveChangesAsync() == 1)
             {
                 //return Ok();
-                return Created($"/api/nota/{model.id}",model);
+                return Created($"/api/curso/{model.codCurso}",model);
             }
         }
         catch
@@ -69,25 +63,18 @@ namespace ProjetoEscola_API.Controllers
             return BadRequest();
         }
 
-        [HttpPut("{NotaId}")]
-        public async Task<IActionResult> put(int NotaId, Nota dadosNotaAlt)
+        [HttpPut("{CursoId}")]
+        public async Task<IActionResult> put(int CursoId, CursoEscola dadosCursoAlt)
         {
             try 
             {
-                var result = await _context.Nota.FindAsync(NotaId);
-               
-                if (NotaId != result.id || dadosNotaAlt.nota > 10 || dadosNotaAlt.nota < 0 || dadosNotaAlt.ra.Length > 5 ||
-                     dadosNotaAlt.nota == null || dadosNotaAlt.disciplina == null || dadosNotaAlt.ra == null )
-                {
-                    return BadRequest();
-                }
-                result.ra = dadosNotaAlt.ra;
-                result.nota = dadosNotaAlt.nota;
-                result.disciplina = dadosNotaAlt.disciplina;
-                //result.disciplina = dadosNotaAlt.disciplina;
-    
+                //verifica se existe aluno a ser alterado
+                var result = await _context.CursoEscola.FindAsync(CursoId);
+            
+                result.nome = dadosCursoAlt.nome;
+                result.codCurso = dadosCursoAlt.codCurso;
                 await _context.SaveChangesAsync();
-                return Created($"/api/nota/{dadosNotaAlt.ra}", dadosNotaAlt);
+                return Created($"/api/curso/{dadosCursoAlt.codCurso}", dadosCursoAlt);
             }
             catch
             {
@@ -95,19 +82,19 @@ namespace ProjetoEscola_API.Controllers
             }
         }
 
-        [HttpDelete("{NotaId}")]
-        public async Task<ActionResult> delete(int NotaId)
+        [HttpDelete("{CursoId}")]
+        public async Task<ActionResult> delete(int CursoId)
         {
             try
             {
                 //verifica se existe aluno a ser excluído
-                var nota = await _context.Nota.FindAsync(NotaId);
-                if (nota == null)
+                var curso = await _context.CursoEscola.FindAsync(CursoId);
+                if (curso == null)
                 {
                     //método do EF
                     return NotFound();
                 }
-                _context.Remove(nota);
+                _context.Remove(curso);
                 await _context.SaveChangesAsync();
                 return NoContent();
             }

@@ -19,8 +19,9 @@ namespace ProjetoEscola_API.Data
             options.UseSqlServer(Configuration.GetConnectionString("StringConexaoSQLServer"));
         }
         public DbSet<Aluno>? Aluno { get; set; }
-         public DbSet<Nota>? Nota { get; set; }
+        public DbSet<Nota>? Nota { get; set; }
         public DbSet<Professor>? Professor { get; set; }
         public DbSet<Disciplina>? Disciplina { get; set; }
+        public DbSet<CursoEscola>? CursoEscola {get;set;}
     }
 }
